@@ -27,7 +27,7 @@ abstract class ConexaoBD
                 //[A FAZER] Registra a exeção em um arquivo de log/texto interno
 
                 // Lançar uma mensagem de erro genérica sem detalhes do banco/sistema
-                throw new Excepion("Erro ao conectar com o banco de dados! ");
+                throw new Exception("Erro ao conectar com o banco de dados! ");
             } //final do catch
         } // dinal do if
         
