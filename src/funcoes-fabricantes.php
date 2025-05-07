@@ -5,8 +5,7 @@ function listarFabricantes($conexao):array {
     $sql = "SELECT * FROM fabricantes ORDER BY nome";
 
     try {
-         $consulta = $conexao->prepare($sql);
-
+        $consulta = $conexao->prepare($sql);
         $consulta->execute();
 
     return $consulta->fetchAll(PDO::FETCH_ASSOC);
