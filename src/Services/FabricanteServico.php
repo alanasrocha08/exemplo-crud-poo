@@ -2,11 +2,10 @@
 
 namespace ExemploCrud\Services;
 
-use Exception;
+use Throwable;
 use ExemploCrud\Database\ConexaoBD;
 use ExemploCrud\Models\Fabricante;
 use PDO;
-use Throwable;
 
 final class FabricanteServico
 {
@@ -25,7 +24,7 @@ final class FabricanteServico
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $erro) {
-            throw new Exception("Erro ao carregar fabricantes: " . $erro->getMessage());
+            throw new Throwable("Erro ao carregar fabricantes: " . $erro->getMessage());
         }
     }
 
@@ -37,7 +36,7 @@ final class FabricanteServico
             $consulta->bindValue(":nome", $fabricante->getNome(), PDO::PARAM_STR);
             $consulta->execute();
         } catch (Throwable $erro) {
-            throw new Exception("Erro ao inserir: " . $erro->getMessage());
+            throw new Throwable("Erro ao inserir: " . $erro->getMessage());
         }
     }
 
@@ -58,7 +57,7 @@ final class FabricanteServico
             // Versão usando ternário simplificado usando 'elvis operator'
             return $consulta->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (Throwable $erro) {
-            throw new Exception("Erro ao carregar fabricante: " . $erro->getMessage());
+            throw new Throwable("Erro ao carregar fabricante: " . $erro->getMessage());
         }
     }
 
@@ -72,7 +71,7 @@ final class FabricanteServico
             $consulta->bindValue(":id", $fabricante->getId(), PDO::PARAM_INT);
             $consulta->execute();
         } catch (Throwable $erro) {
-            throw new Exception("Erro ao atualizar fabricante: " . $erro->getMessage());
+            throw new Throwable("Erro ao atualizar fabricante: " . $erro->getMessage());
         }
     }
 
@@ -85,7 +84,7 @@ final class FabricanteServico
         $consulta->bindValue(":id", $id, PDO::PARAM_INT);
         $consulta->execute();
     } catch (Throwable $erro) {
-        throw new Exception("Erro ao excluir fabricante: ".$erro->getMessage());
+        throw new Throwable("Erro ao excluir fabricante: ".$erro->getMessage());
     }
 }
 }
