@@ -12,4 +12,8 @@ final class Utils {
         var_dump($dados);
         "</pre>";
     }
+
+    public static function formatarPreco(float $valor):string {
+    return "R$ ".number_format($valor, 2, ",", "." );
+}
 }

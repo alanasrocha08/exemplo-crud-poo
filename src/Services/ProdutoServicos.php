@@ -17,7 +17,16 @@ final class ProdutoServicos{
 
     public function listarTodos(): array 
     {
-        $sql = "SELECT * FROM produtos ORDER BY nome";
+        $sql = $sql = "SELECT
+    produtos.id,
+    produtos.nome AS produto,
+    produtos.preco,
+    produtos.quantidade,
+    fabricantes.nome AS fabricante
+    FROM produtos
+    JOIN fabricantes
+    ON produtos.fabricante_id = fabricantes.id
+    ORDER BY produto";
         try {
             $consulta = $this->conexao->prepare($sql);
             $consulta->execute();
