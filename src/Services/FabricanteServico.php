@@ -42,4 +42,23 @@ final class FabricanteServico
             throw new Exception("Erro: " . $erro->getMessage());
         }
     }
-}
+
+    public function buscarPorId(int $id): ?array
+    {
+    $sql = "SELECT * FROM fabricantes WHERE id = :id";
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(":id", $id, PDO::PARAM_INT);
+        $consulta->execute();
+
+        /*Guardamos o resultado da operação fwtch em uma variável */
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        /*Se o resultafo for verdadeiro, retornamos ele. Senão, retornamos null */
+        return $resultado ? $resultado : null;
+
+        //retur $consulta->fetch(PDO:FETCH_ASSOC)
+    } catch (Throwable $erro) {
+        throw new Exception("Erro ao carregar fabricante: ".$erro->getMessage());
+    }
+} //final da classe 

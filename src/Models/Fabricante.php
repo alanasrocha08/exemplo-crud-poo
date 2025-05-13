@@ -21,7 +21,7 @@ use InvalidArgumentException;
         }
     }
 
-    public function getId(): ?int 
+    public function getId(): ?int //o "?" significa que é nulo
     {
         return $this->id;
     }
