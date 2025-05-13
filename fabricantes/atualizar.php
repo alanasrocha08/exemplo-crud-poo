@@ -5,7 +5,8 @@ require_once "../src/funcoes-fabricantes.php";
 $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
  
 /* Chamando a função para carregar os dados de um fabricante */
-$fabricante = listarUmFabricante($conexao, $id);
+$fabricante = new FabricanteServico();
+$fabricantesDados - $fabricanteServico->buscarPorId($id);
 
 /*Verificando se o formulário de atualização foi acionado */
 if(isset($_POST['atualizar'])){
