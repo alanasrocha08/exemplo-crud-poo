@@ -1,13 +1,15 @@
 <?php
 
 use ExemploCrud\Models\Produto;
+use ExemploCrud\Services\FabricanteServico;
 use ExemploCrud\Services\ProdutoServicos;
 
 require_once "../vendor/autoload.php";
-require_once "../src/funcoes-utilitarias.php";
 
 $produtoServico = new ProdutoServicos();
-$listaDeProdutos = $produtoServico->listarTodos();
+$fabricanteServico = new FabricanteServico();
+
+$listaDeFabricantes = $fabricanteServico->listarTodos();
 
 if (isset($_POST["inserir"])) {
     // Capturar/sanitizar os dados
@@ -43,18 +45,18 @@ if (isset($_POST["inserir"])) {
     );
 
     // Chamar a função responsável por inserir o produto e passar os parâmetros
-inserirProduto(
-    $conexao,
-    $nome,
-    $preco,
-    $quantidade,
-    $fabricante,
-    $descricao
-);
+    $produto = new Produto(
+        $nome,
+        $preco,
+        $quantidade,
+        $fabricante,
+        $descricao
+    );
+    $produtoServico->inserir($produto);
 
-// Por fim, redirecionar para visualização dos produtos
-header("location:visualizar.php");
-exit;
+    // Por fim, redirecionar para visualização dos produtos
+    header("location:visualizar.php");
+    exit;
 }
 
 ?>
