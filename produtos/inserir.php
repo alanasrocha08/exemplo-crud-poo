@@ -1,15 +1,20 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
-require_once "../src/funcoes-produtos.php";
 
-$listaDeFabricantes = listarFabricantes($conexao);
+use ExemploCrud\Models\Produto;
+use ExemploCrud\Services\ProdutoServicos;
+
+require_once "../vendor/autoload.php";
+require_once "../src/funcoes-utilitarias.php";
+
+$produtoServico = new ProdutoServicos();
+$listaDeProdutos = $produtoServico->listarTodos();
 
 if (isset($_POST["inserir"])) {
     // Capturar/sanitizar os dados
     $nome = filter_input(
         INPUT_POST,
         'nome',
-        FILTER_SANITIZE_FULL_SPECIAL_CHARS
+        FILTER_SANITIZE_SPECIAL_CHARS
     );
 
     $preco = filter_input(

@@ -2,6 +2,7 @@
 
 namespace ExemploCrud\Services;
 
+use Exception;
 use Throwable;
 use ExemploCrud\Database\ConexaoBD;
 use ExemploCrud\Models\Produto;
@@ -17,12 +18,13 @@ final class ProdutoServicos{
 
     public function listarTodos(): array 
     {
-        $sql = $sql = "SELECT
+        $sql = "SELECT
     produtos.id,
     produtos.nome AS produto,
     produtos.preco,
     produtos.quantidade,
-    fabricantes.nome AS fabricante
+    fabricantes.nome AS fabricante,
+    produtos.quantidade * produtos.preco AS total
     FROM produtos
     JOIN fabricantes
     ON produtos.fabricante_id = fabricantes.id
@@ -32,7 +34,7 @@ final class ProdutoServicos{
             $consulta->execute();
             return $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Throwable $erro) {
-            throw new Throwable ("Erro ao carregar produtos:". $erro->getMessage());
+            throw new Exception ("Erro ao carregar produtos:". $erro->getMessage());
         }
     }
 
@@ -45,7 +47,7 @@ final class ProdutoServicos{
             $consulta->execute();
             return $consulta->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (Throwable $erro) {
-            throw new Throwable("Erro ao carregar produto:".$erro->getMessage());
+            throw new Exception("Erro ao carregar produto:".$erro->getMessage());
         }
     }
         public function inserir(Produto $produto): void
@@ -56,7 +58,7 @@ final class ProdutoServicos{
             $consulta->bindValue(":nome", $produto->getNome(), PDO::PARAM_STR);
             $consulta->execute();
         } catch (Throwable $erro) {
-            throw new Throwable("Erro ao inserir: " . $erro->getMessage());
+            throw new Exception("Erro ao inserir: " . $erro->getMessage());
         }
     }
 
@@ -70,7 +72,7 @@ final class ProdutoServicos{
             $consulta->bindValue(":id", $produto->getId(), PDO::PARAM_INT);
             $consulta->execute();
         } catch (Throwable $erro) {
-            throw new Throwable("Erro ao atualizar fabricante: " . $erro->getMessage());
+            throw new Exception("Erro ao atualizar fabricante: " . $erro->getMessage());
         }
     }
 
@@ -83,7 +85,7 @@ final class ProdutoServicos{
         $consulta->bindValue(":id", $id, PDO::PARAM_INT);
         $consulta->execute();
     } catch (Throwable $erro) {
-        throw new Throwable("Erro ao excluir fabricante: ".$erro->getMessage());
+        throw new Exception("Erro ao excluir fabricante: ".$erro->getMessage());
     }
 }
 }
