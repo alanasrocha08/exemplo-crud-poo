@@ -1,13 +1,20 @@
 <?php
 
+use ExemploCrud\Helpers\Utils;
 use ExemploCrud\Services\FabricanteServico;
 
 require_once "../vendor/autoload.php";
 
+$mensagemDeErro = "";
 
+try{
 $fabricanteServico = new FabricanteServico;
 $listaDeFabricantes = $fabricanteServico->listarTodos();
 $quantidade = count($listaDeFabricantes);
+} catch (Throwable $erro) {
+    Utils::registrarLog($erro);
+    $mensagemDeErro = "Houve um erro ao carregar os dados. Fale com o supote.";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
